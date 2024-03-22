@@ -1,0 +1,182 @@
+CREATE external TABLE social_media_data (
+    User_ID INT,
+    Username STRING,
+    Platform STRING,
+    Post_ID INT,
+    Post_Text STRING,
+    Post_Timestamp TIMESTAMP ,
+    Likes_Reactions INT,
+    Comments INT,
+    Shares_Retweets INT,
+    Hashtags STRING,
+    Mentions STRING,
+    Media_Type STRING,
+    Media_URL STRING,
+    Post_URL STRING,
+    Location STRING,
+    Privacy_Settings STRING,
+    User_Followers INT,
+    User_Following INT,
+    Account_Creation_Date DATE ,
+    Account_Verification STRING,
+    User_Engagement INT,
+    User_Interactions INT,
+    User_Activity STRING,
+    User_Bio STRING,
+    User_Description_1 STRING,
+    User_Description_2 STRING,
+    Server_Post STRING,
+    User_Language STRING
+)
+ROW FORMAT DELIMITED
+FIELDS TERMINATED BY ',';
+
+LOAD DATA INPATH '/projet/socialmedia.csv' INTO TABLE social_media_data;
+
+select * from social_media_data limit 10; 
+
+SELECT
+    Platform,
+    COUNT(*) AS Platform_Count
+FROM social_media_data
+GROUP BY Platform
+ORDER BY Platform_Count DESC;
+
+SELECT
+    Username,
+    SUM(Likes_Reactions) AS Total_Likes,
+    SUM(Comments) AS Total_Comments,
+    SUM(Shares_Retweets) AS Total_Shares
+FROM social_media_data
+GROUP BY Username;
+
+SELECT
+    Username,
+    Hashtags,
+    COUNT(*) AS Hashtag_Count
+FROM social_media_data
+WHERE Hashtags IS NOT NULL AND Hashtags != ''
+GROUP BY Username, Hashtags
+ORDER BY Hashtag_Count DESC
+LIMIT 10;
+
+SELECT
+    Username,
+    AVG(Likes_Reactions + Comments + Shares_Retweets) AS Avg_Engagement
+FROM social_media_data
+GROUP BY Username
+ORDER BY Avg_Engagement DESC
+LIMIT 10;
+
+SELECT
+    Username,
+    User_Followers
+FROM social_media_data
+ORDER BY User_Followers DESC
+LIMIT 10;
+
+SELECT
+    Media_Type,
+    Platform,
+    COUNT(*) AS Media_Count
+FROM social_media_data
+GROUP BY Media_Type, Platform
+ORDER BY Media_Type, Media_Count DESC;
+
+SELECT
+    Account_Verification,
+    COUNT(*) AS Verified_User_Count
+FROM social_media_data
+GROUP BY Account_Verification;
+
+SELECT
+    Username,
+    Hashtags,
+    COUNT(*) AS Hashtag_Count
+FROM social_media_data
+WHERE Hashtags IS NOT NULL AND Hashtags != ''
+GROUP BY Username, Hashtags
+ORDER BY Hashtag_Count DESC
+LIMIT 10;
+
+SELECT
+    Username,
+    AVG(Likes_Reactions + Comments + Shares_Retweets) AS Avg_Engagement
+FROM social_media_data
+GROUP BY Username
+ORDER BY Avg_Engagement DESC
+LIMIT 10;
+
+SELECT
+    Username,
+    User_Followers
+FROM social_media_data
+ORDER BY User_Followers DESC
+LIMIT 10;
+
+SELECT
+    Media_Type,
+    Platform,
+    COUNT(*) AS Media_Count
+FROM social_media_data
+GROUP BY Media_Type, Platform
+ORDER BY Media_Type, Media_Count DESC;
+
+SELECT
+    Account_Verification,
+    COUNT(*) AS Verified_User_Count
+FROM social_media_data
+GROUP BY Account_Verification;
+
+SELECT
+    Username,
+    Hashtags,
+    COUNT(*) AS Hashtag_Count
+FROM social_media_data
+WHERE Hashtags IS NOT NULL AND Hashtags != ''
+GROUP BY Username, Hashtags
+ORDER BY Hashtag_Count DESC
+LIMIT 10;
+
+SELECT
+    Media_Type,
+    AVG(Likes_Reactions + Comments + Shares_Retweets) AS Avg_Engagement
+FROM social_media_data
+WHERE Media_Type IS NOT NULL
+GROUP BY Media_Type
+ORDER BY Avg_Engagement DESC;
+
+SELECT
+    Username,
+    COUNT(*) AS Post_Count
+FROM social_media_data
+GROUP BY Username
+ORDER BY Post_Count DESC
+LIMIT 10;
+
+SELECT
+    Platform,
+    Media_Type,
+    COUNT(*) AS Media_Count
+FROM social_media_data
+GROUP BY Platform, Media_Type
+ORDER BY Platform, Media_Count DESC;
+
+SELECT Platform, COUNT(*) AS Post_Count
+FROM social_media_data
+GROUP BY Platform;
+
+SELECT
+    Account_Verification,
+    AVG(Likes_Reactions) AS Avg_Likes
+FROM social_media_data
+GROUP BY Account_Verification;
+
+SELECT
+    Username,
+    SUM(Likes_Reactions + Comments + Shares_Retweets) AS Total_Interactions
+FROM social_media_data
+GROUP BY Username
+ORDER BY Total_Interactions DESC
+LIMIT 5;
+
